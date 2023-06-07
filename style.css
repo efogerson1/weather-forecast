@@ -1,0 +1,40 @@
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Navigation Bar */
+    .navbar {
+        background-color: purple;
+        color: white;
+        padding: 10px;
+    }
+    
+    /* City Tabs */
+    .city-tabs {
+        float: left;
+        width: 150px;
+        background-color: #f1f1f1;
+        padding: 10px;
+    }
+    
+    /* Current Weather Section */
+    .current-weather {
+        margin-left: 170px;
+        padding: 10px;
+    }
+    
+    /* 5 Day Forecast Section */
+    .forecast {
+        margin-left: 170px;
+        padding: 10px;
+    }
+    
+    /* Each day's forecast square */
+    .forecast-day {
+        display: inline-block;
+        width: 20%;
+        padding: 10px;
+    }
