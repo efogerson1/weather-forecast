@@ -7,11 +7,31 @@
     
     /* Navigation Bar */
     .navbar {
-        background-color: purple;
         color: white;
         padding: 10px;
         margin: auto;
-        text-align: center
+        text-align: center;
+    }
+
+    .gradient-custom {
+        /* fallback for old browsers */
+        background: #48c6ef;
+      
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to top, rgba(72,198,239,0.5), rgba(111,134,214,0.5));
+      
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to top, rgba(72,198,239,0.5), rgba(111,134,214,0.5))
+      }
+
+    .search{
+        width: 25%;
+    }
+
+    .search-text{
+        margin-top: 10px;
+        margin-left: 10px;
+        text-align: center;
     }
     
     /* City Tabs */
@@ -39,10 +59,7 @@
     
     /* 5 Day Forecast Section */
     .forecast {
-        /* margin: 0 auto;
-            width: fit-content;
-            padding: 10em; */
-            margin-top: 10em;
+            margin-top: 5em;
             padding: 10em;
             margin-left: 25%;
             width: 50%;
