@@ -24,9 +24,9 @@
             <p class = "search-text">Search for a City!</p>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroup-sizing-default">Search</span>
+                  <button class="input-group-text searchButton" id="inputGroup-sizing-default">Search</button>
                 </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                <input type="text" class="form-control userInput" aria-label="Default" aria-describedby="inputGroup-sizing-default">
               </div>
         </div>
         
@@ -46,11 +46,13 @@
         </div>
         
         <!-- Current Weather Section -->
-        <div class="current-weather" style="border:1px solid black">
+        <div class="current-weather display" style="border:1px solid black">
+
             <h2>Current Weather</h2>
-            <p>Temperature: XX°C</p>
-            <p>Wind: XX km/h</p>
-            <p>Humidity: XX%</p>
+            <p class = "name"></p>
+            <p class = "temp" >Temperature: XX°C</p>
+            <p class = "wind">Wind: XX km/h</p>
+            <p class = "humidity">Humidity: XX%</p>
         </div>
         
         <!-- 5 Day Forecast Section -->
