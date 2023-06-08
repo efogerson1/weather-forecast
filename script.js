@@ -1,13 +1,19 @@
-var searchButton = document.querySelector('.searchButton');
-var inputValue = document.querySelector('.userInput');
+var button = document.querySelector('.button');
+var userInput = document.querySelector('.userInput');
 var name = document.querySelector('.name');
 var temp = document.querySelector('.temp');
+var desc = document.querySelector('.desc');
 var humidity = document.querySelector('.humidity');
-var apiURL = 'https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=e17d6c40bd10dd5e7fb0d651afd5e253'
 
-searchButton.addEventListener('click', function(){
+var apiUrlTest = 'http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=e17d6c40bd10dd5e7fb0d651afd5e253'
 
-    fetch(apiURL).then(response => response.json()).then(data => console.log(data))
+var geoCodeApiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q='+userInput.value+'&limit=5&appid=e17d6c40bd10dd5e7fb0d651afd5e253'
+
+button.addEventListener('click', function(){
+
+    fetch(geoCodeApiUrl)
+    .then(response => response.json())
+    .then(data => console.log(data))
     .catch(error => alert("Wong!"))
 
 })
