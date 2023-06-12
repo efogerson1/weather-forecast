@@ -56,7 +56,7 @@ function singleDay(lat, lon){
           /*  console.log(data); */
 
          })
-         .catch(error => alert(error));
+         /* .catch(error => alert(error)); */
 
 }
 
@@ -72,7 +72,7 @@ function fiveDayForecast(lat, lon){
           }
          }); 
 
-       var fiveDayTempValue = data[0]['main']['temp'];
+       var fiveDayTempValue = data['main']['temp'];
        var fiveDayWindValue = data[0]['wind']['speed'];
        var fiveDayHumidityValue = data[0]['main']['humidity'];
        
