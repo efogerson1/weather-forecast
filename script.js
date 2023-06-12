@@ -30,9 +30,6 @@ function getCityLocation(){
            fiveDayForecast(lat, lon);
          })
          .catch(error => alert(error));
-     
-       
-
 }
 
 function singleDay(lat, lon){
@@ -53,7 +50,7 @@ function singleDay(lat, lon){
           humidity.innerHTML = 'Humidity: '+ humidityValue;
 
             
-          /*  console.log(data); */
+          console.log(data);
 
          })
          /* .catch(error => alert(error)); */
@@ -63,18 +60,23 @@ function singleDay(lat, lon){
 function fiveDayForecast(lat, lon){
   var fiveForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=e17d6c40bd10dd5e7fb0d651afd5e253`
 
+  /* var fiveDayTempValue = {};
+  var fiveDayWindValue = {};
+  var fiveDayHumidityValue = {}; */ 
+
   fetch(fiveForecast)
          .then(response => response.json())
          .then(data => {
+            /* fiveDayTempValue = data['main']['temp'];
+            fiveDayWindValue = data[0]['wind']['speed'];
+           fiveDayHumidityValue = data[0]['main']['humidity'];  */
           for (let i = 0; i < data.list.length; i += 8){
             console.log(data.list[i]);
 
           }
          }); 
 
-       var fiveDayTempValue = data['main']['temp'];
-       var fiveDayWindValue = data[0]['wind']['speed'];
-       var fiveDayHumidityValue = data[0]['main']['humidity'];
+       
        
        cityName.innerHTML = 'City: '+ cityNameValue; 
           forecastTemp.innerHTML = 'Temperature: '+ fiveDayTempValue;
