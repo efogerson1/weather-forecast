@@ -4,9 +4,14 @@ var cityName = document.querySelector('.name');
 var temp = document.querySelector('.temp');
 var humidity = document.querySelector('.humidity');
 var wind = document.querySelector('.wind');
-var fiveDayTemp = document.querySelector('.forecastTemp')
-var fiveDayHumidity = document.querySelector('.forecastHumidity')
-var fiveDayWind = document.querySelector('.forecastWind')
+var fiveDayTemp = document.querySelector('.forecastTemp');
+var fiveDayHumidity = document.querySelector('.forecastHumidity');
+var fiveDayWind = document.querySelector('.forecastWind');
+
+var forecastContainer = document.querySelector('.forecast');
+
+
+
 
 var apiUrlTest = 'http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=e17d6c40bd10dd5e7fb0d651afd5e253'
 
@@ -55,26 +60,34 @@ function singleDay(lat, lon){
 function fiveDayForecast(lat, lon){
  var fiveForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=e17d6c40bd10dd5e7fb0d651afd5e253`
 
-  var fiveDayTempValue = {};
-  var fiveDayWindValue = {};
-  var fiveDayHumidityValue = {};  
+  
 
   fetch(fiveForecast)
          .then(response => response.json())
          .then(data => {
           for (let i = 0; i < data.list.length; i += 8){
              console.log(data.list[i]); 
-          cityNameValue = data.city.name;*/
-          fiveDayTempValue = `${data.list[i].main.temp}`;
-          fiveDayWindValue = data.list[i].wind.speed;
-          fiveDayHumidityValue = data.list[i].main.humidity;
+         
+          //create container for each day
+          var forecastDayContainer = document.createElement('div');
+          //append all elements to div
+          forecastDayContainer.append(fiveDayTempValue);
+          //append div to a container element that already is in HTML
+          forecastDayContainer.append(fiveDayWindValue);
+          forecastDayContainer.append(fiveDayHumidityValue);
+          forecastContainer.append(forecastDayContainer);
+
+          var fiveDayTempValue = document.createElement("p");
+          fiveDayTempValue.textContent = `Temp: ${data.list[i].main.temp}`;
+
+          var fiveDayWindValue = document.createElement("p");
+          fiveDayWindValue.textContent = `Wind: ${data.list[i].wind.speed}`;
+
+          var fiveDayHumidityValue = document.createElement("p");
+          fiveDayHumidityValue.textContent = `Humidity: ${data.list[i].main.humidity}`;
+
           }
          }); 
-          
-          cityName.innerHTML = 'City: '+ cityNameValue;
-          forecastTemp.innerHTML = 'Temperature: '+ fiveDayTempValue;
-          forecastWind.innerHTML = 'Wind: '+ fiveDayWindValue;
-          forecastHumidity.innerHTML = 'Humidity: '+ fiveDayHumidityValue; 
           
 }
 
