@@ -67,6 +67,20 @@ function fiveDayForecast(lat, lon){
          .then(data => {
           for (let i = 0; i < data.list.length; i += 8){
              console.log(data.list[i]); 
+
+          var fiveDayTempValue = document.createElement("p");
+          fiveDayTempValue.classList.add('forecastTemp');
+          fiveDayTempValue.textContent = `Temp: ${data.list[i].main.temp}`;
+
+          var fiveDayWindValue = document.createElement("p");
+          fiveDayWindValue.classList.add('forecastWind');
+          fiveDayWindValue.textContent = `Wind: ${data.list[i].wind.speed}`;
+
+          var fiveDayHumidityValue = document.createElement("p");
+          fiveDayHumidityValue.classList.add('forecastHumidity');
+          fiveDayHumidityValue.textContent = `Humidity: ${data.list[i].main.humidity}`;
+
+          
          
           //create container for each day
           var forecastDayContainer = document.createElement('div');
@@ -76,20 +90,27 @@ function fiveDayForecast(lat, lon){
           forecastDayContainer.append(fiveDayWindValue);
           forecastDayContainer.append(fiveDayHumidityValue);
           forecastContainer.append(forecastDayContainer);
+          
 
-          var fiveDayTempValue = document.createElement("p");
-          fiveDayTempValue.textContent = `Temp: ${data.list[i].main.temp}`;
-
-          var fiveDayWindValue = document.createElement("p");
-          fiveDayWindValue.textContent = `Wind: ${data.list[i].wind.speed}`;
-
-          var fiveDayHumidityValue = document.createElement("p");
-          fiveDayHumidityValue.textContent = `Humidity: ${data.list[i].main.humidity}`;
-
+          localStorage.setItem(`forecast_${i}`, JSON.stringify({
+            temperature: data.list[i].main.temp,
+            wind: data.list[i].wind.speed,
+            humidity: data.list[i].main.humidity
+          }));
+          
+          var storedData = localStorage.getItem('forecast_0');
+          if (storedData) {
+            var forecastData = JSON.parse(storedData);
+            console.log(forecastData.temperature); // Access the temperature value
+            console.log(forecastData.wind);       // Access the wind value
+            console.log(forecastData.humidity);   // Access the humidity value
+          }
           }
          }); 
-          
+  
 }
+
+
 
 button.addEventListener('click', getCityLocation);
 
