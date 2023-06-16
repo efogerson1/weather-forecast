@@ -7,11 +7,13 @@ var wind = document.querySelector('.wind');
 var fiveDayTemp = document.querySelector('.forecastTemp');
 var fiveDayHumidity = document.querySelector('.forecastHumidity');
 var fiveDayWind = document.querySelector('.forecastWind');
+var searchHistory = document.querySelector('.searchHistory');
 
 var forecastContainer = document.querySelector('.forecast');
 
+var searchedCities = JSON.parse(localStorage.getItem("cityName"))||[];
 
-
+/* console.log(userInputValue); */
 
 var apiUrlTest = 'http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=e17d6c40bd10dd5e7fb0d651afd5e253'
 
@@ -19,10 +21,11 @@ var geoCodeApiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q='+userInput
 
 /*  Test function with console.log */
 
-function getCityLocation(){
+function getCityLocation(userInputValue){
   var userInputValue = userInput.value;
+  console.log(userInput);
   var geoCodeApiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q='+userInputValue+'&limit=5&appid=e17d6c40bd10dd5e7fb0d651afd5e253'
-     
+     console.log(geoCodeApiUrl);
          fetch(geoCodeApiUrl)
          .then(response => response.json())
          .then(data => {
@@ -42,7 +45,8 @@ function singleDay(lat, lon){
          fetch(currentWeather)
          .then(response => response.json())
          .then(data => {
-          console.log(data.list[0].main.temp);
+          // console.log(data.list[0].main.temp);
+         
            var cityNameValue = data.city.name;
            var tempValue = data.list[0].main.temp;
            var windValue = data.list[0].wind.speed;
@@ -52,7 +56,8 @@ function singleDay(lat, lon){
           temp.innerHTML = 'Temperature: '+ tempValue;
           wind.innerHTML = 'Wind: '+ windValue;
           humidity.innerHTML = 'Humidity: '+ humidityValue;
-
+          searchedCities.push(cityNameValue);
+          localStorage.setItem("cityName", JSON.stringify(searchedCities)); //adding cityname to local storage
          })
 
 }
@@ -66,7 +71,7 @@ function fiveDayForecast(lat, lon){
          .then(response => response.json())
          .then(data => {
           for (let i = 0; i < data.list.length; i += 8){
-             console.log(data.list[i]); 
+            //  console.log(data.list[i]); 
 
           var fiveDayTempValue = document.createElement("p");
           fiveDayTempValue.classList.add('forecastTemp');
@@ -101,17 +106,48 @@ function fiveDayForecast(lat, lon){
           var storedData = localStorage.getItem('forecast_0');
           if (storedData) {
             var forecastData = JSON.parse(storedData);
-            console.log(forecastData.temperature); // Access the temperature value
+            /* console.log(forecastData.temperature); // Access the temperature value
             console.log(forecastData.wind);       // Access the wind value
-            console.log(forecastData.humidity);   // Access the humidity value
-          }
+            console.log(forecastData.humidity);   // Access the humidity value */
+          } 
           }
          }); 
   
+        }
+//EF -- retrieving stored values, printing to searchHistory
+
+function generateSearchHistoryLi(cityName) {
+  var li = $('<li>').text(cityName);
+  return li;
 }
+
+function renderLi(){
+  // Retrieve stored search history
+  var storedSearchHistory = JSON.parse(localStorage.getItem('cityName')) || [];
+console.log(storedSearchHistory);
+  // Generate <li> elements and append them to #searchHistory
+  for (var i = 0; i < storedSearchHistory.length; i++) {
+    var cityNameValue = storedSearchHistory[i];
+    var li = generateSearchHistoryLi(cityNameValue);
+    li.addClass("weatherCity");
+    console.log(li);
+    $('#searchHistory').append(li);
+    li.click(function(event){
+      let liCity = "";
+      event.preventDefault();
+      liCity = li.text();
+      console.log(liCity);
+ getCityLocation(liCity);
+
+    })
+  }
+}
+
+renderLi();
 
 
 
 button.addEventListener('click', getCityLocation);
 
+ 
 
